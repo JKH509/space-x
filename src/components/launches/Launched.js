@@ -1,29 +1,36 @@
-import React, {useState, useEffect} from 'react'
-import { MailIcon, PhoneIcon } from '@heroicons/react/solid'
-
+import React, { useState, useEffect } from "react";
+import { MailIcon, PhoneIcon } from "@heroicons/react/solid";
 
 const Launched = () => {
-
   const [launches, setLaunches] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
 
   useEffect(() => {
     let url = "https://api.spacexdata.com/v4/launches";
     fetch(url)
-        .then(res => res.json())
-        .then(launches => setLaunches(launches))
-    }, []);
+      .then((res) => res.json())
+      .then((launches) => setLaunches(launches));
+  }, []);
 
   return (
-    <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container">
+    <ul
+      role="list"
+      className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container"
+    >
       {launches.map((launch) => (
         <li
           key={launch.id}
           className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200"
         >
           <div className="flex-1 flex flex-col p-8">
-            <img className="w-32 h-32 flex-shrink-0 mx-auto rounded-full" src={launch.links.patch.small} alt="" />
-            <h3 className="mt-6 text-gray-900 text-sm font-medium">{launch.name}</h3>
+            <img
+              className="w-32 h-32 flex-shrink-0 mx-auto rounded-full"
+              src={launch.links.patch.small}
+              alt=""
+            />
+            <h3 className="mt-6 text-gray-900 text-sm font-medium">
+              {launch.name}
+            </h3>
             <dl className="mt-1 flex-grow flex flex-col justify-between">
               <dt className="sr-only">Title</dt>
               <dd className="text-gray-500 text-sm">{launch.title}</dd>
@@ -60,7 +67,7 @@ const Launched = () => {
         </li>
       ))}
     </ul>
-  )
-}
+  );
+};
 
-export default Launched
+export default Launched;
