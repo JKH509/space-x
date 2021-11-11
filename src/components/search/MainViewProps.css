@@ -1,0 +1,75 @@
+body {
+  margin-left: 0px!important;
+  margin-left: 0px!important;
+  width: 100%;
+}
+.cardCol{
+  margin-top: 20px!important;
+  border: 1px dashed #1C6EA4;
+border-radius: 20px 0px 20px 0px;
+color: white;
+/* opacity: 0.8; */
+background:linear-gradient(0deg, rgba(6, 3, 180, 0.719), rgba(14, 62, 150, 0.849)),url('../assets/images/space-unsplash.jpg');
+}
+
+.propsImageDiv {
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.propsImage {
+  width: 100%;
+  height: 150px;
+}
+
+@media (max-width: 576px) { 
+  .cardCol{
+    margin-top: 15px!important;
+  }
+  .col {
+    padding: 0px!important;
+    margin: 0px!important;
+    }
+    .row {
+      padding: 10px!important;
+      margin-right: 0px!important;
+      margin-left: 0px!important;
+    }
+ }
+
+
+@media (max-width: 768px) { 
+  .cardCol{
+    margin: 5px!important;
+    margin-left: 0px!important;
+    margin-left: 0px!important;
+    padding-top: 30px;
+    border: 1px dashed #1C6EA4;
+border-radius: 20px 0px 20px 0px;
+  }
+  .propsImageDiv {
+    margin: auto;
+    
+  }
+  .propsImage {
+    padding-top: auto;
+    width: 100%;
+    /* height: auto; */
+  }
+ }
+
+ @media (min-width: 769px) { 
+  .cardCol{
+    margin: 5px!important;
+    display: flex;
+  }
+  .propsImage {
+    width: 100%;
+    height: auto;
+  }
+  .propsImageDiv {
+    width: 200px;
+  }
+ }
+

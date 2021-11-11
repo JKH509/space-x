@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@700&display=swap');
+.patches{
+  width: 150px;
+  height: auto;
+}
+.name{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.card{
+  display: flex;
+  padding: 20px;
+  margin: 20px;
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .pics{
+    /* min-height: 150px; */
+    height: 350px;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 768px)  {
+  .pics{
+    /* min-height: 150px; */
+    height: auto;
+    width: 100%;
+  }
+}
+
+.costBanner{
+  display: flex;
+}
+
+.learnBtn{
+  width: 35px;
+}
+
+.learnBtn:hover{
+  width: 60px;
+  background-color: rgb(50, 99, 205);
+
+}

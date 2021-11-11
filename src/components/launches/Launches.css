@@ -1,0 +1,56 @@
+.col {
+  padding: 0px!important;
+  margin: 0px!important;
+}
+/* .row {
+  padding: 0px!important;
+  margin: 0px!important;
+} */
+
+
+
+.cardBackground{
+  background-color: yellow;
+}
+
+.patchDiv{
+  /* width: 100%; */
+  margin: auto;
+}
+.patchImg{
+  width: 100%;
+
+}
+
+
+.paginationBttns {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid #2b2eff;
+  color: #2b2eff;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: white;
+  background-color: #2b2eff;
+}
+
+.paginationActive a {
+  color: white;
+  background-color: #2b2eff;
+}
+
+.paginationDisabled a {
+  color: grey;
+  background-color: grey;
+}
