@@ -7,6 +7,7 @@ import Rockets from './rockets/Rockets';
 import ErrorPage from './shared/err/ErrorPage';
 import MainViewProp from './search/MainViewProp';
 import Launched from './launches/Launched';
+import FalconOne from './rockets/FalconOne';
 
 // import Axios from 'axios'
 
@@ -19,6 +20,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/launches" element={<Launches />} />
         <Route path="/rockets" element={<Rockets />} />
+        <Route path="/rockets/:id" element={<Rockets />} />
+        <Route path="/rockets/falcon-one" element={<FalconOne />} />
         <Route path='/props' element={<MainViewProp />} />
         <Route path='/launched' element={<Launched />} />
         <Route path='*' element={<ErrorPage />} />

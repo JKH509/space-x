@@ -1,4 +1,4 @@
-import { findByLabelText } from '@testing-library/dom'
+// import { findByLabelText } from '@testing-library/dom'
 import React from 'react'
 import ReactDom from 'react-dom'
 
@@ -35,12 +35,6 @@ export default function Modal({ open, onClose, small,  name, id, date_local, YT,
       <div style={MODAL_STYLES}>
         <div>{id}</div>
         <h1>{name}</h1>
-        {/* {date_local}
-        {wikipedia}
-        {details}
-        {small} */}
-      
-
         <button onClick={onClose}>Close Modal</button>
       </div>
     </>,

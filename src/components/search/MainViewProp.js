@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Modal from '../shared/modal/Modal'
 import './MainViewProps.css'
 
@@ -31,16 +31,12 @@ const MainViewProp = () => {
       <div className="row justify-content-center">
       
         {launches.map((launch) => (
-         
+    
           <div
             className="col-xs-12 col-md-5 col-xl-5   cardCol d-flex flex-fill"
             key={launch.id}
           >
-            {/* {console.log(launch.id)} */}
-            {/* <input type='text' className="d-none"  value={launch.id} /> */}
-
             <div className="row d-flex flex-fill ">
-              {/* Image */}
               <div className="col-xs-4 col-md-6 col-lg-4 propsImageDiv  d-flex flex-fill ">
                 <div className="">
                   {launch.links.patch.small ? (
@@ -54,18 +50,18 @@ const MainViewProp = () => {
                   )}
                 </div>
               </div>
-              {/* inside card */}
+            
               <div className="col-xs-12 col-md-12 col-lg-8   d-flex flex-fill">
-                {/* <div className='row'> */}
+          
                 <div className="d-flex align-items-start flex-column bd-highlight ">
-                  {/* Title          */}
+             
                   <h4 className=" p-2 bd-highlight ">{launch.name}{" "}{launch.id}</h4>
-                  {/* Text */}
+            
                   <div className="p-2  description ">
-                    {/* {launch.details} */}
+             
                     {launch.details && launch.details.substr(0, 150)}
                   </div>
-                  {/* Modal */}
+               
                   <div className="p-2 bd-highlight d-flex align-items-stretch mt-auto">
                    
                     <button onClick={() => expandModal(launch)}>Open Modal</button>
