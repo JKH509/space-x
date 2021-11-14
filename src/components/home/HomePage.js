@@ -1,78 +1,84 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { Link } from "react-router-dom";
-import { Popover, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import pic from "../assets/images/bryan-unsplash.jpg";
+
+import axios from 'axios';
+import React, {useState, useEffect, Fragment} from 'react'
+import { Link } from 'react-router-dom';
+import { Popover, Transition, Tab } from '@headlessui/react'
+// import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import pic from '../assets/images/bryan-unsplash.jpg'
+
+
+
 
 const HomePage = () => {
-  const [rockets, setRockets] = useState([]);
 
-  useEffect(() => {
-    let url = "https://api.spacexdata.com/v4/rockets";
-    fetch(url)
-      .then((res) => res.json())
-      .then((rockets) => setRockets(rockets));
-  }, []);
+  const [rockets, setRockets] = useState('');
+  const [launches, setLaunches] = useState([]);
+  const [crew1, setCrew1] = useState([]);
+  const [crew2, setCrew2] = useState([]);
+  const [crew3, setCrew3] = useState([]);
+  const [crew4, setCrew4] = useState([]);
+  
+  
 
-  const posts = [
-    {
-      title: "Boost your conversion rate",
-      href: "#",
-      category: { name: "Article", href: "#" },
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.",
-      date: "Mar 16, 2020",
-      datetime: "2020-03-16",
-      imageUrl:
-        "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80",
-      readingTime: "6 min",
-      author: {
-        name: "Roel Aufderehar",
-        href: "#",
-        imageUrl:
-          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-      },
-    },
-    {
-      title: "How to use search engine optimization to drive sales",
-      href: "#",
-      category: { name: "Video", href: "#" },
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci tempora aut inventore optio animi., tempore temporibus quo laudantium.",
-      date: "Mar 10, 2020",
-      datetime: "2020-03-10",
-      imageUrl:
-        "https://images.unsplash.com/photo-1547586696-ea22b4d4235d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80",
-      readingTime: "4 min",
-      author: {
-        name: "Brenna Goyette",
-        href: "#",
-        imageUrl:
-          "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-      },
-    },
-    {
-      title: "Improve your customer experience",
-      href: "#",
-      category: { name: "Case Study", href: "#" },
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis perferendis hic.",
-      date: "Feb 12, 2020",
-      datetime: "2020-02-12",
-      imageUrl:
-        "https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80",
-      readingTime: "11 min",
-      author: {
-        name: "Daniela Metz",
-        href: "#",
-        imageUrl:
-          "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-      },
-    },
-  ];
+    useEffect(() => {
+      async function fetchLaunches() {
+        const request = await axios.get('https://api.spacexdata.com/v4/launches/latest')
+        setLaunches(request.data)
+        console.log(request.data)
+        return request;
+      }
+      fetchLaunches()
 
-  return (
-    <div>
+      async function fetchRockets() {
+        const request = await axios.get('https://api.spacexdata.com/v4/rockets/5e9d0d95eda69973a809d1ec')
+        setRockets(request.data)
+        console.log(request.data)
+        return request;
+      }
+      fetchRockets()
+
+      async function fetchCrew1() {
+        const request = await axios.get('https://api.spacexdata.com/v4/crew/5fe3c587b3467846b3242198')
+        setCrew1(request.data)
+        console.log(request.data)
+        return request;
+      }
+      fetchCrew1()
+
+      // async function fetchCrew2() {
+      //   const request = await axios.get('https://api.spacexdata.com/v4/crew/5fe3c5beb3467846b3242199')
+      //   setCrew2(request.data)
+      //   console.log(request.data)
+      //   return request;
+      // }
+      // fetchCrew2()
+
+      // async function fetchCrew3() {
+      //   const request = await axios.get('https://api.spacexdata.com/v4/crew/5fe3c5f6b3467846b324219a')
+      //   setCrew3(request.data)
+      //   console.log(request.data)
+      //   return request;
+      // }
+      // fetchCrew3()
+
+      // async function fetchCrew4() {
+      //   const request = await axios.get('https://api.spacexdata.com/v4/crew/60c4b5ad4e041c0b356db393')
+      //   setCrew4(request.data)
+      //   console.log(request.data)
+      //   return request;
+      // }
+      // fetchCrew4()
+    }, [])
+
+    
+  
+
+    function classNames(...classes) {
+      return classes.filter(Boolean).join(' ')
+    }
+ 
+    return (
+      <div>
       <div className="relative bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
@@ -114,14 +120,7 @@ const HomePage = () => {
                   and in some cases back again.
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                  <div className="rounded-md shadow">
-                    {/* <a
-                      to="#"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
-                    >
-                      Get started
-                    </Link>  */}
-                  </div>
+                  
                   <div className="mt-3 sm:mt-0 sm:ml-3">
                     <a
                       className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
@@ -144,81 +143,174 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
-        <div className="absolute inset-0">
-          <div className="bg-white h-1/3 sm:h-2/3" />
+<div className='container mt-5'>
+
+      <div className="pb-5 border-b border-gray-200">
+      <div className="-ml-2 -mt-2 flex flex-wrap items-baseline">
+        <h3 className="ml-2 mt-2 text-lg leading-6 font-medium text-gray-900">Latest Launch News</h3>
+        <p className="ml-2 mt-1 text-sm text-gray-500 truncate">in Engineering</p>
+      </div>
+    </div>
+
+
+      <div className="bg-white">
+      <section aria-labelledby="features-heading" className="relative mb-5">
+        <div className="aspect-w-3 aspect-h-2 overflow-hidden sm:aspect-w-5 lg:aspect-none lg:absolute lg:w-1/2 lg:h-full lg:pr-4 xl:pr-16">
+          <img
+            // src={rockets.flickr_images[]}
+            alt="Black leather journal with silver steel disc binding resting on wooden shelf with machined steel pen."
+            className="h-full w-full object-center object-cover lg:h-full lg:w-full"
+          />
         </div>
-        <div className="relative max-w-7xl mx-auto">
-          <div className="text-center">
-            <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">
-              From the blog
+
+        <div className="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:pb-32 sm:px-6 lg:max-w-7xl lg:pt-32 lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
+          <div className="lg:col-start-2">
+            <h2 id="features-heading" className="font-medium text-gray-500">
+              Space-x proudly brings the newest launches to you
             </h2>
-            <p className="mt-3 max-w-2xl mx-auto text-xl text-gray-500 sm:mt-4">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa
-              libero labore natus atque, ducimus sed.
+            <p className="mt-4 text-4xl font-extrabold text-gray-900 tracking-tight">All the newest Details</p>
+            <p className="mt-4 text-gray-500">
+              We've obsessed over every detail of this handcrafted spaceship to bring you one day closer from taking your first trip beyond.
+            </p>
+
+            <dl className="mt-10 grid grid-cols-1 gap-y-10 gap-x-8 text-sm sm:grid-cols-2">
+             
+                <div key={launches.name}>
+                  <dt className="font-medium text-gray-900">Space shuttle name: {launches.name}</dt>
+                  <dt className="font-medium text-gray-900">Launch date: {launches.date_local}</dt>
+
+                  <dd className="mt-2 text-gray-500">Flight Number: {launches.flight_number}</dd>
+                </div>
+         
+            </dl>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+
+    <div className="bg-gray-900">
+      <div className="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
+        <div className="space-y-12">
+          <div className="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
+            <h2 className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Meet the crew</h2>
+            <p className="text-xl text-gray-300">
+              Ornare sagittis, suspendisse in hendrerit quis. Sed dui aliquet lectus sit pretium egestas vel mattis
+              neque.
             </p>
           </div>
-          <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-2 lg:max-w-none">
-            {rockets.map((rocket) => (
-              <div
-                key={rocket.id}
-                className="flex flex-col rounded-lg shadow-lg overflow-hidden"
-              >
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-48 w-full object-cover"
-                    src={rocket.flickr_images[0]}
-                    alt={rocket.name}
-                  />
-                </div>
-                <div className="flex-1 bg-white p-6 flex flex-col justify-between">
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-indigo-600">
-                      {/* <Link to={rocket.category} className="hover:underline"> */}
-                      {rocket.name}
-                      {/* </Link>  */}
-                    </p>
-                    <div className="block mt-2">
-                      <p className="text-xl font-semibold text-gray-900">
-                        {rocket.name}
-                      </p>
-                      <span>success rate: {rocket.success_rate_pct}%</span>
-                      <span className="self-align-end">
-                        success rate: {rocket.success_rate_pct}%
-                      </span>
-                      <p className="mt-3 text-base text-gray-500">
-                        {rocket.description}
-                      </p>
+          <ul role="list" className="space-y-4 sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:grid-cols-3 lg:gap-8">
+            {/* {people.map((person) => ( */}
+              <li key={crew1.name} className="py-10 px-6 bg-gray-800 text-center rounded-lg xl:px-10 xl:text-left">
+                <div className="space-y-6 xl:space-y-10">
+                  <img className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56" src={crew1.image} alt="" />
+                  <div className="space-y-2 xl:flex xl:items-center xl:justify-between">
+                    <div className="font-medium text-lg leading-6 space-y-1">
+                      <h3 className="text-white">{crew1.name}</h3>
+                      <p className="text-indigo-400">{crew1.agency}</p>
                     </div>
-                  </div>
-                  <div className="mt-6 flex items-center">
-                    <div className="flex-shrink-0">
-                      {/* <Link to={rocket.author.href}>
-                      <span className="sr-only">{rocket.author.name}</span>
-                      <img className="h-10 w-10 rounded-full" src={rocket.author.imageUrl} alt="" />
-                    </Link>  */}
-                    </div>
-                    <div className="ml-3">
-                      <p className="text-sm font-medium text-gray-900">
-                        {/* <Link to={rocket.author.href} className="hover:underline">
-                        {rocket.author.name}
-                      </Link>  */}
-                      </p>
-                      {/* <div className="flex space-x-1 text-sm text-gray-500">
-                      <time dateTime={rocket.datetime}>{rocket.date}</time>
-                      <span aria-hidden="true">&middot;</span>
-                      <span>{rocket.readingTime} read</span>
-                    </div> */}
-                      <button>Click</button>
-                    </div>
+
+                    <ul role="list" className="flex justify-center space-x-5">
+                      <li>
+                        <a  className="text-gray-400 hover:text-gray-300">
+                          <span className="sr-only">Wiki {crew1.wikipedia}</span>
+                          <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84" />
+                          </svg>
+                        </a>
+                      </li>
+                      <li>
+                        <a  className="text-gray-400 hover:text-gray-300">
+                          <span className="sr-only">Status: {crew1.status}</span>
+                          <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                              fillRule="evenodd"
+                              d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </a>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              </li>
+            {/* // ))} */}
+          </ul>
         </div>
       </div>
     </div>
+
+
+
+
+
+    </div>
+
+
+    {/* <div className="bg-white">
+      <section aria-labelledby="features-heading" className="max-w-7xl mx-auto py-32 sm:px-2 lg:px-8">
+        <div className="max-w-2xl mx-auto px-4 lg:px-0 lg:max-w-none">
+          <div className="max-w-3xl">
+            <h2 id="features-heading" className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+              Technical Specifications
+            </h2>
+            <p className="mt-4 text-gray-500">
+              The Organize modular system offers endless options for arranging your favorite and most used items. Keep
+              everything at reach and in its place, while dressing up your workspace.
+            </p>
+          </div>
+
+          <Tab.Group as="div" className="mt-4">
+            <div className="-mx-4 flex overflow-x-auto sm:mx-0">
+              <div className="flex-auto px-4 border-b border-gray-200 sm:px-0">
+                <Tab.List className="-mb-px flex space-x-10">
+                  {tabs.map((tab) => (
+                    <Tab
+                      key={tab.name}
+                      className={({ selected }) =>
+                        classNames(
+                          selected
+                            ? 'border-indigo-500 text-indigo-600'
+                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                          'whitespace-nowrap py-6 border-b-2 font-medium text-sm'
+                        )
+                      }
+                    >
+                      {tab.name}
+                    </Tab>
+                  ))}
+                </Tab.List>
+              </div>
+            </div>
+
+            <Tab.Panels as={Fragment}>
+              {tabs.map((tab) => (
+                <Tab.Panel key={tab.name} className="space-y-16 pt-10 lg:pt-16">
+                  {tab.features.map((feature) => (
+                    <div key={feature.name} className="flex flex-col-reverse lg:grid lg:grid-cols-12 lg:gap-x-8">
+                      <div className="mt-6 lg:mt-0 lg:col-span-5">
+                        <h3 className="text-lg font-medium text-gray-900">{feature.name}</h3>
+                        <p className="mt-2 text-sm text-gray-500">{feature.description}</p>
+                      </div>
+                      <div className="lg:col-span-7">
+                        <div className="aspect-w-2 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden sm:aspect-w-5 sm:aspect-h-2">
+                          <img src={feature.imageSrc} alt={feature.imageAlt} className="object-center object-cover" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </Tab.Panel>
+              ))}
+            </Tab.Panels>
+          </Tab.Group>
+        </div>
+      </section>
+    </div> */}
+
+
+      </div>
   );
 };
 
