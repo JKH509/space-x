@@ -1,22 +1,27 @@
+import axios from 'axios';
 import React, {useState, useEffect} from 'react'
+import { useParams } from 'react-router';
 // import { MailIcon, PhoneIcon } from '@heroicons/react/solid'
 
-
-const Launched = () => {
-
-  const [launches, setLaunches] = useState([]);
-  // const [pageNumber, setPageNumber] = useState(0);
-
-  useEffect(() => {
-    let url = "https://api.spacexdata.com/v4/launches";
-    fetch(url)
-        .then(res => res.json())
-        .then(launches => setLaunches(launches))
+const LaunchById = () => {
+  const {id} = useParams();
+  const [launchId, setLaunchId] = useState([]);
+  
+    useEffect(() => {
+      axios
+        .get(`https://api.spacexdata.com/v4/launches/${id}`)
+        .then((response) => {
+          console.log(response.data);
+          setLaunchId(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }, []);
 
   return (
     <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container">
-      {launches.map((launch) => (
+      {launchId.map((launch) => (
         <li
           key={launch.id}
           className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200"
@@ -63,4 +68,4 @@ const Launched = () => {
   )
 }
 
-export default Launched
+export default LaunchById

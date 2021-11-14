@@ -3,13 +3,18 @@ import{  Route, Routes} from "react-router-dom";
 import HomePage from './home/HomePage';
 import Header from './shared/header/Header';
 import Launches from './launches/Launches';
+import LaunchById from './launches/LaunchById';
 import Rockets from './rockets/Rockets';
+import RocketById from './rockets/RocketById';
 import ErrorPage from './shared/err/ErrorPage';
-import MainViewProp from './search/MainViewProp';
-import Launched from './launches/Launched';
-import FalconOne from './rockets/FalconOne';
 
-// import Axios from 'axios'
+import MainViewProp from './search/MainViewProp';
+import Crew from './crew/Crew';
+import CrewById from './crew/CrewById';
+import CrewByLaunch from './crew/CrewByLaunch';
+
+
+
 
 
 function App() {
@@ -19,11 +24,16 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/launches" element={<Launches />} />
+        <Route path='/launch/:id' element={<LaunchById />} />
         <Route path="/rockets" element={<Rockets />} />
-        <Route path="/rockets/:id" element={<Rockets />} />
-        <Route path="/rockets/falcon-one" element={<FalconOne />} />
+        <Route path="/rocket/:id" element={<RocketById />} />
+        <Route path='/crew-members' element={<Crew />} />
+        <Route path='/crew-member/:id' element={<CrewById />} />
+
+                    {/* To Be Figured Out */}
+        {/* <Route path='/crew/:id' element={<CrewByLaunch />} /> */}
+
         <Route path='/props' element={<MainViewProp />} />
-        <Route path='/launched' element={<Launched />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </>

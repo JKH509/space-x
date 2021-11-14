@@ -1,15 +1,21 @@
 import React, {useState, useEffect} from 'react'
-// import Axios from 'axios';
-import Modal from '../shared/modal/Modal'
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+// import Modal from '../shared/modal/Modal'
 
-const Rockets = ({id, name, success}) => {
+const Rockets = () => {
   const [rockets, setRockets] = useState([]);
 
-  useEffect(() => {
-    let url = "https://api.spacexdata.com/v4/rockets";
-    fetch(url)
-        .then(res => res.json())
-        .then(rockets => setRockets(rockets))
+    useEffect(() => {
+      axios
+        .get('https://api.spacexdata.com/v4/rockets')
+        .then((response) => {
+          // console.log(response.data);
+          setRockets(response.data);
+        })
+        .catch((error) => {
+          // console.log(error);
+        });
     }, []);
 
   return (
@@ -66,7 +72,8 @@ const Rockets = ({id, name, success}) => {
                       <span aria-hidden="true">&middot;</span>
                       <span>{rocket.readingTime} read</span>
                     </div> */}
-                    <button >Click {rocket.id}</button>
+                    <Link to={`/rocket/${rocket.id}`}>Learn More</Link>
+                    
                   </div>
                 </div>
               </div>

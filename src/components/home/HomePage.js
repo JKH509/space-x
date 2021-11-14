@@ -45,29 +45,29 @@ const HomePage = () => {
       }
       fetchCrew1()
 
-      async function fetchCrew2() {
-        const request = await axios.get('https://api.spacexdata.com/v4/crew/5fe3c5beb3467846b3242199')
-        setCrew2(request.data)
-        console.log(request.data)
-        return request;
-      }
-      fetchCrew2()
+      // async function fetchCrew2() {
+      //   const request = await axios.get('https://api.spacexdata.com/v4/crew/5fe3c5beb3467846b3242199')
+      //   setCrew2(request.data)
+      //   console.log(request.data)
+      //   return request;
+      // }
+      // fetchCrew2()
 
-      async function fetchCrew3() {
-        const request = await axios.get('https://api.spacexdata.com/v4/crew/5fe3c5f6b3467846b324219a')
-        setCrew3(request.data)
-        console.log(request.data)
-        return request;
-      }
-      fetchCrew3()
+      // async function fetchCrew3() {
+      //   const request = await axios.get('https://api.spacexdata.com/v4/crew/5fe3c5f6b3467846b324219a')
+      //   setCrew3(request.data)
+      //   console.log(request.data)
+      //   return request;
+      // }
+      // fetchCrew3()
 
-      async function fetchCrew4() {
-        const request = await axios.get('https://api.spacexdata.com/v4/crew/60c4b5ad4e041c0b356db393')
-        setCrew4(request.data)
-        console.log(request.data)
-        return request;
-      }
-      fetchCrew4()
+      // async function fetchCrew4() {
+      //   const request = await axios.get('https://api.spacexdata.com/v4/crew/60c4b5ad4e041c0b356db393')
+      //   setCrew4(request.data)
+      //   console.log(request.data)
+      //   return request;
+      // }
+      // fetchCrew4()
     }, [])
 
     
@@ -143,7 +143,7 @@ const HomePage = () => {
         </div>
       </div>
 
-<div className='container'>
+<div className='container mt-5'>
 
       <div className="pb-5 border-b border-gray-200">
       <div className="-ml-2 -mt-2 flex flex-wrap items-baseline">
@@ -154,10 +154,10 @@ const HomePage = () => {
 
 
       <div className="bg-white">
-      <section aria-labelledby="features-heading" className="relative">
+      <section aria-labelledby="features-heading" className="relative mb-5">
         <div className="aspect-w-3 aspect-h-2 overflow-hidden sm:aspect-w-5 lg:aspect-none lg:absolute lg:w-1/2 lg:h-full lg:pr-4 xl:pr-16">
           <img
-            src={rockets.flickr_images[5]}
+            // src={rockets.flickr_images[]}
             alt="Black leather journal with silver steel disc binding resting on wooden shelf with machined steel pen."
             className="h-full w-full object-center object-cover lg:h-full lg:w-full"
           />
