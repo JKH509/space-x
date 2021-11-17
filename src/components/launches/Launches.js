@@ -115,7 +115,7 @@ const Launches = ( ) => {
       // return (
        
         // <ul className=''>
-      {/* {launches.map(({ id, name,  }, index) => (
+      /* {launches.map(({ id, name,  }, index) => (
         <li className='' key={id}>
           <div className=''>{`#${index + 1} ${name}`}</div>
           <div className=''>
@@ -123,7 +123,7 @@ const Launches = ( ) => {
             <div className=''>FALCON 1/9</div>
           </div>
         </li>
-      ))} */}
+      ))} */
     // </ul>
       // );
     // });

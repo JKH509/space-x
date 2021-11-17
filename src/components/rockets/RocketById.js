@@ -17,8 +17,8 @@ const RocketById = () => {
 
   return (
     <div>
-      <h1></h1>
-      <p>{rocket.name}</p>
+      <h1>{rocket.name}</h1>
+      <p></p>
     </div>
   );
 };

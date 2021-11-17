@@ -33,7 +33,7 @@ function App() {
                     {/* To Be Figured Out */}
         {/* <Route path='/crew/:id' element={<CrewByLaunch />} /> */}
 
-        <Route path='/props' element={<MainViewProp />} />
+        {/* <Route path='/props' element={<MainViewProp />} /> */}
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </>
