@@ -17,7 +17,7 @@ const HomePage = () => {
   const [crew1, setCrew1] = useState([]);
 
   
-  // console.log("launch name is" + launches.links.webcast)
+  // console.log("launch name is " + launches.links.webcast)
 
     useEffect(() => {
       async function fetchLaunches() {
@@ -94,10 +94,10 @@ const HomePage = () => {
                     <div className="mt-3 sm:mt-0 sm:ml-3">
                       <a
                         className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
-                        // href="https://youtu.be/AtmtP4vouSY"
-                        // href={`https://www.youtube/${launches.links.webcast}`}
+                        href='https://youtu.be/AtmtP4vouSY'
+                        
                       >
-                      
+                  
                         Latest Launch
                       </a>
                     </div>
