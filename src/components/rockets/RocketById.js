@@ -143,14 +143,14 @@ const RocketById = () => {
                 height
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket.height.feet} ft
+                {rocket && rocket.height.feet} ft
               </dd>
 
               <dt className="text-sm font-medium  text-gray-500">
                 diameter
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket.diameter.feet} ft
+                {rocket && rocket.diameter.feet} ft
               </dd>
             </div>
 
@@ -159,14 +159,14 @@ const RocketById = () => {
                 Weight
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket.mass.lb} lbs
+                {rocket && rocket.mass.lb} lbs
               </dd>
 
               <dt className="text-sm font-medium  text-gray-500">
                 Number of Engines
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket.diameter.feet} ft
+              {rocket && rocket.height.feet} ft
               </dd>
             </div>
 
