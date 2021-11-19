@@ -27,14 +27,16 @@ const OVERLAY_STYLES = {
 }
 
 export default function Modal({ open, onClose, small,  name, id, date_local, YT, wikipedia, details }) {
+  // export default function Modal(props) {
   if (!open) return null
 
   return ReactDom.createPortal(
     <>
       <div style={OVERLAY_STYLES} />
       <div style={MODAL_STYLES}>
-        <div>{id}</div>
-        <h1>{name}</h1>
+        <div style={{color:'white'}}>{id}</div>
+        <h1 style={{color:'black'}}>{name} </h1>
+        {date_local}
         <button onClick={onClose}>Close Modal</button>
       </div>
     </>,

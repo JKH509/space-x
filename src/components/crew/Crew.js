@@ -1,9 +1,20 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react'
 import { Link} from "react-router-dom";
+import Modal from '../shared/modal/Modal'
 
 const Crew = () => {
   const [crewMembers, setCrewMembers] = useState([]);
+
+  const [launch, setLaunch] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+
+  const expandModal = () => {
+    setLaunch(launch.name);
+    setIsOpen(true);
+  };
+
+
   
     useEffect(() => {
       axios
@@ -25,8 +36,7 @@ const Crew = () => {
           <div className="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
             <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Our Team</h2>
             <p className="text-xl text-gray-500">
-              Odio nisi, lectus dis nulla. Ultrices maecenas vitae rutrum dolor ultricies donec risus sodales. Tempus
-              quis et.
+              We put the smartest minds in the planet, out of the planet.
             </p>
           </div>
           <ul
@@ -60,6 +70,11 @@ const Crew = () => {
                           <span className="sr-only">Id number</span>
                           Active status: {crew.status === 'active' ? <span style={{color:'lightgreen'}}>Active</span>: <span style={{color:'red'}}>Not active</span>}
                         </Link>
+                        <div className="p-2 bd-highlight d-flex align-items-stretch mt-auto">
+                      <button onClick={() => expandModal(launch)}>
+                        Open Modal
+                      </button>
+                    </div>
                       </li>
                     </ul>
                   </div>
@@ -72,6 +87,14 @@ const Crew = () => {
     </div>
 
       {/* <Link to={`/product/${home.id}`}> {home.name}</Link> */}
+
+      <div onClick={() => console.log("clicked")} />
+            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+        name={launch.name}
+              {console.log(launch)}
+               {console.log(launch && launch.name)}
+            </Modal>
+          {/* </div> */}
     </div>
   )
 }

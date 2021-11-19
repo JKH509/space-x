@@ -97,7 +97,6 @@ const HomePage = () => {
                         href='https://youtu.be/AtmtP4vouSY'
                         
                       >
-                  
                         Latest Launch
                       </a>
                     </div>
@@ -137,7 +136,6 @@ const HomePage = () => {
               className="relative mb-5"
             >
               <div className="aspect-w-3 aspect-h-2 overflow-hidden sm:aspect-w-5 lg:aspect-none lg:absolute lg:w-1/2 lg:h-full lg:pr-4 xl:pr-16">
-               {/* {rockets && rockets.name} */}
                 <img
             src={rockets && rockets.flickr_images[3]}
             alt="Lates space-x rocket to be launched."

@@ -23,7 +23,7 @@ const RocketById = () => {
     //   <p></p>
     // </div>
     <>
-      <div className="bg-gray-50 pt-12 sm:pt-16">
+      <div className="bg-gray-50 pt-12 sm:pt-16" >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
@@ -101,7 +101,7 @@ const RocketById = () => {
                 {rocket.active === true ? (
                   <span style={{ color: "green" }}>Active</span>
                 ) : (
-                  <span style={{ color: "green" }}>Not Active</span>
+                  <span style={{ color: "red" }}>Not Active</span>
                 )}
               </dd>
             </div>
@@ -183,6 +183,11 @@ const RocketById = () => {
           </dl>
         </div>
       </div>
+
+
+
+
+     
 
       <div className="container">
         <div

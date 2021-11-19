@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {useState, useEffect}  from 'react';
+import { Link} from "react-router-dom";
 // import { fetchLaunches } from '../../redux/actions/launchActions';??
 
 import { useSelector } from 'react-redux';
@@ -9,25 +10,17 @@ import { useSelector } from 'react-redux';
 import Modal from '../shared/modal/Modal'
 
 
-const Launches = ( ) => {
-    const [launches, setLaunches] = useState([]);
-    const [launch, setLaunch] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
 
-    const expandModal = (launch) => {
-      setLaunch(launch);
-      setIsOpen(true);
-    };
+const Launches = (  ) => {
+    const [launches, setLaunches] = useState([]);
   
     useEffect(() => {
       axios
         .get('https://api.spacexdata.com/v4/launches')
         .then((response) => {
-          console.log(response.data);
           setLaunches(response.data);
         })
         .catch((error) => {
-          console.log(error);
         });
     }, []);
 
@@ -63,23 +56,30 @@ const Launches = ( ) => {
                     <div className="p-2  description ">
                       {launch.details && launch.details.substr(0, 150)}
                     </div>
+
+                    <Link to={`/launch/${launch.id}`} className="text-gray-400 hover:text-gray-500">
+                          <span className="sr-only">rocket number</span>fds
+                          {/* Active status: {crew.status === 'active' ? <span style={{color:'lightgreen'}}>Active</span>: <span style={{color:'red'}}>Not active</span>} */}
+                        </Link>
   
-                    <div className="p-2 bd-highlight d-flex align-items-stretch mt-auto">
+                    {/* <div className="p-2 bd-highlight d-flex align-items-stretch mt-auto">
                       <button onClick={() => expandModal(launch)}>
                         Open Modal
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
             </div>
           ))}
   
-          <div onClick={() => console.log("clicked")}/>
+          {/* <div onClick={() => console.log("clicked")} />
             <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-              {launch && launch.name}
+        name={launch.name}
+              {console.log(launch)}
+               {console.log(launch && launch.name)}
             </Modal>
-          {/* </div> */}
+          </div> */}
         </div>
       </div>
     );
