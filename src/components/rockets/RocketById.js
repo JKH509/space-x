@@ -72,7 +72,15 @@ const RocketById = () => {
 
 //   }
 
-// console.log(structure)
+
+
+const details =  Object.keys(rocket)
+
+
+console.log(typeof rocket)
+
+
+  // console.log(structure)
 
   // console.log(detail[0][1].meters)
   // console.log(detail[0][1].feet)
@@ -82,74 +90,20 @@ const RocketById = () => {
   //  console.log(rocket)
   //  console.log(rocket.height.feet)
   //  console.log(rocket.height.meters)
-  const feet = rocket["height"]
-  console.log(feet)
-
-  const details =  Object.keys(rocket)
+  // const feet = rocket["height"]
+  // console.log(feet)
 
 
-
-  // console.log(details)
-
-
-  
-
-  // details.forEach(function(row) {
-  //     row.forEach(function(col) {
-  //         console.log(col)
-  //       })
-  // })
-
-  
-
-  
-
-  // const array1 = Object.keys(rocket);
-//   const iterator1 = array1.entries();
-  
-//   console.log(iterator1.next().value);
-// console.log(iterator1.next().value);
-// console.log(iterator1.next().value);
-// console.log(iterator1.next().value);
-
-// for (const [index, element] of details.entries())
-//   console.log(index, element);
-  
-//   for (const [index, element] of element.entries())
-//   console.log(index, element);
-
-// for(key in details) {
-//   if(details.hasOwnProperty(key)) {
-//       var value = details[key];
-//       //do something with value;
-//   }
-// }
-
-// const map1 = new Map();
-
-// // map1.set('0', details);
-// map1.set(1, rocket);
-
-// const iterator1 = map1.values();
-
-// const arr1  = iterator1.next().value
-// console.log(arr1)
-
-
-
-
-// console.log(iterator1.next().value);
 
 // console.log(Object.values(Object.keys(rocket)))
 
   
-// details.pop()
-// delete details[9]
-// delete details[14]
-// delete details[15]
-// delete details[20]
-// console.log(details)
-
+details.pop()
+delete details[8]
+delete details[9]
+delete details[14]
+delete details[15]
+delete details[20]
 
 
   return (
@@ -247,6 +201,7 @@ const RocketById = () => {
                             className={classNames(open ? 'text-blue-600' : 'text-gray-900', 'text-sm font-medium')}
                           >
                             {detail.toUpperCase()}
+                            {/* {detail.toUpperCase()} {index} */}
                           </span>
                           <span className="ml-6 flex items-center">
                             {open ? (
@@ -269,17 +224,182 @@ const RocketById = () => {
                       <Disclosure.Panel as="div" className="pb-6 prose prose-sm">
 
                         <ul role="list">
-                          {console.log(rocket[detail])}
+                          {/* {console.log(rocket["height"[1]] )} */}
+
+                          {/* This works... */}
                         
-                           {/* {rocket[detail].map((item) => (
-                              <li  >
-                                {console.log(item)}
-                              
-                            </li>
-                          ))}  */}
+                          {typeof rocket[detail] === "object" ?  
+       
+                            <>{rocket[detail] === rocket["height"] ? 
+                              <>
+                                <li>Meters {rocket[detail].meters}</li> 
+                                <li>Feet {rocket[detail].feet}</li> 
+                              </> 
+                              : <>
+                              {rocket[detail] === rocket["diameter"] ? 
+                              <>
+                              <li>Meters {rocket[detail].meters}</li> 
+                                <li>Feet {rocket[detail].feet}</li> 
+                              </>
+                              : <>
+                              {rocket[detail] === rocket["mass"] ? 
+                              <>
+                              <li>Kilograms {rocket[detail].kg.toLocaleString()}</li> 
+                                <li>Pounds {rocket[detail].lb.toLocaleString()}</li> 
+                              </>
+                               : <> 
+                                
+                                {rocket[detail] === rocket["first_stage"] ? 
+                                <>
+                                <span><b>Thrust level</b></span>
+                                <li>kn {rocket[detail].thrust_sea_level.kN.toLocaleString()}</li>
+                                <li>lbf {rocket[detail].thrust_sea_level.lbf.toLocaleString()}</li>
+
+                                <span><b>Thrust vacuum</b></span>
+                                <li>kn { rocket[detail].thrust_vacuum.kN.toLocaleString()}</li>
+                                <li>lbf {rocket[detail].thrust_vacuum.lbf.toLocaleString()}</li>
+
+                                <span><b>Reusable</b></span> 
+                                {rocket[detail].reusable === true ? <li>Yes</li> : <li>No</li>}
+
+                                <span><b>Number of engines</b></span>
+                                <li>{ Number(rocket[detail].engines)}</li>
+
+                                <span><b>Fuel amount in tons</b></span>
+                                <li>{rocket[detail].fuel_amount_tons.toLocaleString()}</li>
+
+                                <span><b>Burn time in seconds</b></span>
+                                {rocket[detail].burn_time_sec > 0 ? <li>{rocket[detail].burn_time_sec}</li> : <li>Null</li>}
+
+                               </>
+                                
+                                : <> 
+                                {rocket[detail] === rocket["second_stage"] ?  
+                                 <>
+                                 
+                                 <span><b>Thrust level</b></span>
+                                 <li>kn {rocket[detail].thrust.kN.toLocaleString()}</li>
+                                 <li>kn {rocket[detail].thrust.lbf.toLocaleString()}</li>
+  
+                                 <span><b>Height</b></span>
+                                 <li>Meters {rocket[detail].payloads.composite_fairing.height.meters}</li>
+                                 <li>Feet {rocket[detail].payloads.composite_fairing.height.feet}</li>
+   
+                                 <span><b>Diameter</b></span>
+                                 <li>Meters {rocket[detail].payloads.composite_fairing.diameter.meters}</li>
+                                 <li>Feet {rocket[detail].payloads.composite_fairing.diameter.feet}</li>
+
+                                 <span><b>Option</b></span>
+                                 <li>{rocket[detail].payloads.option_1}</li>
+
+                                 <span><b>Reusable</b></span>
+                                 {rocket[detail].reusable === true ? <li>Yes</li> : <li>No</li>}
+
+                                 <span><b>Number of engines</b></span>
+                                 <li>{Number(rocket[detail].engines)}</li>
+
+                                 <span><b>Fuel amount in tons</b></span>
+                                 <li>{rocket[detail].fuel_amount_tons}</li>
+
+                                 <span><b>Burn Time in Seconds</b></span>
+                                 <li>{rocket[detail].burn_time_sec}</li>
+
+
+                                </>
+                                : <>
+                                {rocket[detail] === rocket["engines"] ? <>
+
+                                <span><b>ISP</b></span>
+                                <li>Sea level {rocket[detail].isp.sea_level}</li>
+                                <li>Vacuum {rocket[detail].isp.vacuum}</li>
+                                
+                                <span><b>Thrust Sea Level</b></span>
+                                <li>KN {rocket[detail].thrust_sea_level.kN.toLocaleString()}</li>
+                                <li>LBF {rocket[detail].thrust_sea_level.lbf.toLocaleString()}</li>
+
+                                <span><b>Thrust Vacuum</b></span>
+                                <li>KN {rocket[detail].thrust_vacuum.kN.toLocaleString()}</li>
+                                <li>LBF {rocket[detail].thrust_vacuum.lbf.toLocaleString()}</li>
+
+                                <span><b># of Engines</b></span>
+                                <li>{rocket[detail].number}</li>
+
+                                <span><b>Type</b></span>
+                                <li>{rocket[detail].type}</li>
+
+                                <span><b>Version</b></span>
+                                <li>{rocket[detail].version}</li>
+
+                                <span><b>Layout</b></span>
+                                <li>{rocket[detail].layout}</li>
+
+                                <span><b>Engine loss</b></span>
+                                <li>{rocket[detail].engine_loss_max}</li>
+
+                                <span><b>Propellants</b></span>
+                                <li>Propellant # 1 {rocket[detail].propellant_1}</li>
+                                <li>Propellant # 2 {rocket[detail].propellant_2}</li>
+
+                                <span><b>Thrust to weight ratio</b></span>
+                                <li>{rocket[detail].thrust_to_weight}</li>
+                               
+                                 </> 
+                                 : <>
+                                 {rocket[detail] === rocket["landing_legs"] ? <>
+                                 
+                                 <span><b># of Legs</b></span>
+                                 <li>{rocket[detail].number}</li>
+                                 <span><b>Material</b></span>
+                                 <li>{rocket[detail].material}</li>
+                                  </> 
+                                  : <>
+                                  {rocket[detail] === rocket["payload_weights"] ? 
+                                  <>
+                                  {rocket[detail].map((item) => (
+                                    <li><b>{item.id}</b>
+                                      <ul>
+                                        <li>{item.name}</li>
+                                        <li>Kilograms {item.kg.toLocaleString()}</li>
+                                        <li>Pounds {item.lb.toLocaleString()}</li>
+                                      </ul>
+                                    </li>
+                                  ))}
+                                  </>
+                                  : ""}
+                                  </>}
+                                 </>}
+                                </>}
+                              </>}
+                            </>}
+                          </> }
+                        </> }
+                      </> 
+                          : 
+                          <>
+                          {typeof rocket[detail] === "string" ? 
+                            <>
+                              {rocket[detail] === rocket["wikipedia"] ? 
+                                <li><a href={rocket[detail]}>wiki link</a></li> 
+                                : 
+                                <li>{rocket[detail].toUpperCase()}</li>  
+                              }
+                            </>
+                            : 
+                            <>{typeof rocket[detail] === "number" ? 
+                              <li>{Number(rocket[detail])}</li> 
+                              :
+                              <>{typeof rocket[detail] === "boolean" ? 
+                                <>{rocket["active"] === true ? 
+                                  <li style={{color:"green"}}>Active</li> 
+                                    : 
+                                  <li style={{color:"red"}}>Not Active</li> }
+                                  </>
+                              : ""}
+                              </>}
+                            </>}
+                            </>
+                          }
                          
-
-
                         </ul>
                       </Disclosure.Panel>
                     </>
