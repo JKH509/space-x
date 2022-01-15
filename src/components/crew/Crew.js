@@ -20,11 +20,11 @@ const Crew = () => {
       axios
         .get('https://api.spacexdata.com/v4/crew')
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setCrewMembers(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         });
     }, []);
 
@@ -40,7 +40,7 @@ const Crew = () => {
             </p>
           </div>
           <ul
-            role="list"
+            
             className="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8"
           >
             {crewMembers.map((crew) => (
@@ -55,7 +55,7 @@ const Crew = () => {
                       <h3>{crew.name}</h3>
                       <p className="text-indigo-600">{crew.agency}</p>
                     </div>
-                    <ul role="list" className="flex space-x-5">
+                    <ul  className="flex space-x-5">
                       <li>
                         <a href={crew.wikipedia} className="text-gray-400 hover:text-gray-500">
                           <span className="sr-only">Wiki</span>
@@ -66,7 +66,7 @@ const Crew = () => {
                         </a>
                       </li>
                       <li>
-                        <Link to={`/crew-member/${crew.id}`} className="text-gray-400 hover:text-gray-500">
+                        <Link rel="preconnect"  to={`/crew-member/${crew.id}`} className="text-gray-400 hover:text-gray-500">
                           <span className="sr-only">Id number</span>
                           Active status: {crew.status === 'active' ? <span style={{color:'lightgreen'}}>Active</span>: <span style={{color:'red'}}>Not active</span>}
                         </Link>

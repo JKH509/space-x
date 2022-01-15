@@ -47,7 +47,8 @@
 
 .paginationActive a {
   color: white;
-  background-color: #2b2eff;
+  padding: 10px;
+  background-color: rgb(218, 214, 214);
 }
 
 .paginationDisabled a {

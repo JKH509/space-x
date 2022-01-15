@@ -1,96 +1,265 @@
-import { Launch } from '@material-ui/icons';
-import axios from 'axios';
-import React, {useState, useEffect} from 'react'
-import { useParams } from 'react-router';
+// import { Launch } from '@material-ui/icons';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
 // import { MailIcon, PhoneIcon } from '@heroicons/react/solid'
 
 const LaunchById = () => {
-  const {id} = useParams();
-  const [launchId, setLaunchId] = useState('');
+  const { id } = useParams();
+  const [launchId, setLaunchId] = useState("");
   // const [payload, setPayload]= useState([])
-  const [payloadID, setPayloadID]= useState('')
-  
-    useEffect(() => {
-      axios
-        .get(`https://api.spacexdata.com/v4/launches/${id}`)
-        .then((response) => {
-          // console.log(response.data);
-          setLaunchId(response.data);
-          // console.log(launchId.payloads[0])
-          // setPayloadID(launchId.payloads[0])
-        })
-        .catch((error) => {
-        });
+  const [payload, setPayload] = useState([]);
+  const [rocket, setRocket] = useState([]);
+  const [rocketData, setRocketData] = useState([]);
+  const [payloadById, setPayloadById] = useState([]);
 
-        console.log(launchId.payloads)
-        // setPayloadID(launchId.payloads)
-        // console.log(payloadID)
+  useEffect(() => {
+    axios
+      .get(`https://api.spacexdata.com/v4/launches/${id}`)
+      .then((response) => {
+        setLaunchId(response.data);
+        setPayload(launchId && launchId.payloads[0]);
+        setRocket(launchId.rocket);
+      })
+      .catch((error) => {});
+    console.log(rocket);
+    // console.log(launchId.payloads)
+    setPayload(launchId.payloads);
+    // console.log(payloadID)
+    console.log(payload.name);
+    axios
+      .get(`https://api.spacexdata.com/v4/payloads/${payload}`)
+      // .get('https://api.spacexdata.com/v4/payloads/5eb0e4b5b6c3bb0006eeb1e1')
+      .then((res) => {
+        // console.log(res.data);
+        // console.log(Object.keys(response.data));
+        // console.log(response.data.name);
+        // for (const [key, value] of Object.entries(response.data)) {
 
-        axios
-        .get(`https://api.spacexdata.com/v4/payloads/${payloadID}`)
-        .then((response) => {
-          console.log(response.data);
-          setLaunchId(response.data);
-        })
-        .catch((error) => {
-        });
-    }, []);
+        //   console.log(`${key}: ${value}`);
+        // }
+        setPayloadById(res.data);
+        console.log(payloadById.name);
+      })
+      .catch((error) => {});
+
+    axios
+      .get(`https://api.spacexdata.com/v4/rockets/${rocket}`)
+      // .get('https://api.spacexdata.com/v4/payloads/5eb0e4b5b6c3bb0006eeb1e1')
+      .then((res) => {
+        // console.log(res.data.flickr_images[0]);
+        // setRocketData(res.data);
+        // console.log(rocketData && rocketData.flickr_images[0]);
+        // console.log(Object.keys(response.data));
+        // console.log(response.data.name);
+        // for (const [key, value] of Object.entries(response.data)) {
+        //   console.log(`${key}: ${value}`);
+        // }
+        // setPayloadById(response.data);
+        // console.log(payloadById)
+      })
+      .catch((error) => {});
+  }, []);
 
   return (
-    <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container">
-      {/* {launchId.map((launch) => ( */}
-        <li
-          key={launchId.id}
-          className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200"
-        >
-          <div className="flex-1 flex flex-col p-8">
-            <img
-              className="w-32 h-32 flex-shrink-0 mx-auto rounded-full"
-              // src={launchId && launchId.links.patch.small}
-              // src={launchId && launchId.links.patch.small === null ? launchId.links.patch.large : ''}
-              alt=""
-            />
-            {/* {console.log({launchId.launchId.name})} */}
-            <h3 className="mt-6 text-gray-900 text-sm font-medium">
-              {launchId.name}
-            </h3>
-            <dl className="mt-1 flex-grow flex flex-col justify-between">
-              <dt className="sr-only">{launchId.name}</dt>
-              <dd className="text-gray-500 text-sm">{launchId.name}</dd>
-              <dt className="sr-only">Role</dt>
-              <dd className="mt-3">
-                <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">
-                 Number of flights {launchId.flight_number}
-                </span>
-              </dd>
-            </dl>
-          </div>
-          <div>
-            <div className="-mt-px flex divide-x divide-gray-200">
-              <div className="w-0 flex-1 flex">
-                {/* <a
-                  href={`mailto:${launch.email}`}
-                  className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+    <div className="bg-white">
+      <div className="pt-6">
+        <nav aria-label="Breadcrumb">
+          {/* <ol role="list" className="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8"> */}
+          <ol className="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
+            {/* {launchId.breadcrumbs.map((breadcrumb) => ( */}
+            {/* <li key={breadcrumb.id}>
+              <div className="flex items-center">
+                <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
+                  {breadcrumb.name}
+                </a>
+                <svg
+                  width={16}
+                  height={20}
+                  viewBox="0 0 16 20"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  className="w-4 h-5 text-gray-300"
                 >
-                  <MailIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                  <span className="ml-3">Email</span>
-                </a> */}
+                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                </svg>
               </div>
-              <div className="-ml-px w-0 flex-1 flex">
-                {/* <a
-                  href={`tel:${launch.telephone}`}
-                  className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
-                >
-                  <PhoneIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                  <span className="ml-3">Call</span>
-                </a> */}
+            </li> */}
+            {/* ))} */}
+            {/* <li className="text-sm">
+            <a href={launchId.href} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
+              {launchId.name}
+            </a>
+          </li> */}
+          </ol>
+        </nav>
+
+        {/* Image gallery */}
+        <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
+          <div className="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
+            {/* {console.log(rocketData && rocketData.flickr_images)} */}
+            {/* <img
+            src={rocketData && rocketData.flickr_images[0]}
+         
+            alt=''
+            className="w-full h-full object-center object-cover"
+          /> */}
+          </div>
+          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+            <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
+              {/* <img
+            src={rocketData && rocketData.flickr_images[1]}
+              alt=''
+              className="w-full h-full object-center object-cover"
+            /> */}
+            </div>
+            <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
+              {/* <img
+              src={launchId.links.patches.small}
+              alt=''
+              className="w-full h-full object-center object-cover"
+            /> */}
+            </div>
+          </div>
+          <div className="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
+            {/* <img
+            src={launchId.images[3].src}
+            alt={launchId.images[3].alt}
+            className="w-full h-full object-center object-cover"
+          /> */}
+          </div>
+        </div>
+
+        {/* Product info */}
+        <div className="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
+              {launchId.name}
+            </h1>
+          </div>
+
+          {/* Options */}
+          <div className="mt-4 lg:mt-0 lg:row-span-3">
+            <h2 className="sr-only">launch information</h2>
+            <p className="text-3xl text-gray-900">
+              Launch status:{" "}
+              {launchId && launchId.success === true ? (
+                <span style={{ color: "green" }}>SUCCESS</span>
+              ) : (
+                <span style={{ color: "red" }}>FAILED</span>
+              )}
+            </p>
+            <p>
+              {launchId.success !== true ? (
+                <>Reason: {launchId && launchId.failures[0].reason}</>
+              ) : (
+                ""
+              )}{" "}
+            </p>
+
+            {/* </p> */}
+            {/* Reviews */}
+
+            <form className="mt-10">
+              {/* Colors */}
+
+              {/* Sizes */}
+
+              {/* <button
+              type="submit"
+              className="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Add to bag
+            </button> */}
+            </form>
+          </div>
+
+          <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+            {/* Description and details */}
+            <div>
+              <h3 className="sr-only">Description</h3>
+
+              <div className="space-y-6">
+                <p className="text-base text-gray-900">
+                  {launchId.description}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-10">
+              {/* <h3 className="text-sm font-medium text-gray-900">Highlights {console.log(payloadById.name)}</h3> */}
+              <h3 className="text-sm font-medium text-gray-900">Highlights </h3>
+
+              <div className="mt-4">
+                {/* <ul role="list" className="pl-4 list-disc text-sm space-y-2"> */}
+                <ul className="pl-4 list-disc text-sm space-y-2">
+                  {/* {launchId.highlights.map((highlight) => (
+                  <li key={highlight} className="text-gray-400">
+                    <span className="text-gray-600">{highlight}</span>
+                  </li>
+                ))} */}
+                  <li>Number of flights {launchId.flight_number}</li>
+                  <li>Payload used {payloadById.name}</li>
+                  {/* <li>Launch status: {launchId.success === true ? <h3 style={{color:'green'}}>SUCCESS</h3> : <h3 style={{color:'red'}}>FAILED</h3>}</li> */}
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-10">
+              <h2 className="text-sm font-medium text-gray-900">Details</h2>
+
+              <div className="mt-4 space-y-6">
+                <p className="text-sm text-gray-600">{launchId.details}</p>
               </div>
             </div>
           </div>
-        </li>
-      {/* ))} */}
-    </ul>
+        </div>
+      </div>
+    </div>
+
+    // <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container">
+
+    //     <li
+    //       key={launchId.id}
+    //       className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200"
+    //     >
+    //       <div className="flex-1 flex flex-col p-8">
+    //         <img
+    //           className="w-32 h-32 flex-shrink-0 mx-auto rounded-full"
+    //           src={launchId && launchId.links.patch.small}
+
+    //           alt=""
+    //         />
+
+    //         <h3 className="mt-6 text-gray-900 text-sm font-medium">
+    //           {launchId.name}
+    //         </h3>
+    //         <dl className="mt-1 flex-grow flex flex-col justify-between">
+    //           <dt className="sr-only">{launchId.name}</dt>
+    //           <dd className="text-gray-500 text-sm">{launchId.name}</dd>
+    //           <dt className="sr-only">Role</dt>
+    //           <dd className="mt-3">
+    //             <span className="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">
+    //              Number of flights {launchId.flight_number}
+    //             </span>
+    //           </dd>
+    //         </dl>
+    //       </div>
+    //       <div>
+    //         <div className="-mt-px flex divide-x divide-gray-200">
+    //           <div className="w-0 flex-1 flex">
+
+    //           </div>
+    //           <div className="-ml-px w-0 flex-1 flex">
+
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </li>
+
+    // </dl>
   );
 };
 
-export default LaunchById
+export default LaunchById;

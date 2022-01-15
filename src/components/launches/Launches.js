@@ -1,158 +1,123 @@
 import axios from 'axios';
 import React, {useState, useEffect}  from 'react';
+import ReactPaginate from 'react-paginate';
 import { Link} from "react-router-dom";
-// import { fetchLaunches } from '../../redux/actions/launchActions';??
 
-import { useSelector } from 'react-redux';
-// import { getYearWithoutTime } from '../../redux/utils';
-// import logo from '../assets/images/spacex-logo.png'
-// import ReactPaginate from "react-paginate";
-import Modal from '../shared/modal/Modal'
+import './Launches.css'
 
-
-
-const Launches = (  ) => {
-    const [launches, setLaunches] = useState([]);
+const Launches = ( ) => {
   
+    const [launches, setLaunches] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const launchesPerPage = 12;
+
+    const pagesVisited = pageNumber * launchesPerPage;
+
+    // const event = new Date(Date.UTC(2012, 11, 20, 3, 0, 0));
+// const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
     useEffect(() => {
-      axios
-        .get('https://api.spacexdata.com/v4/launches')
-        .then((response) => {
-          setLaunches(response.data);
-        })
-        .catch((error) => {
-        });
-    }, []);
+      const fetchlaunches = async () => {
+        setLoading(true);
+        const response = await axios.get('https://api.spacexdata.com/v4/launches')
+        setLaunches(response.data);
+        setLoading(false);
+      };
+      fetchlaunches();
+  }, []);
+
+
+ 
+  const displayLaunches = launches
+  .slice(pagesVisited, pagesVisited + launchesPerPage)
+    .map((launch) => {
+      return (
+        <div key={launch.id}>
+          <div className="relative">
+            <div className="relative w-full h-72 rounded-lg overflow-hidden">
+              <img
+                src={launch && launch.links.patch.small}
+                alt={launch.imageAlt}
+                className="w-full h-full object-center object-cover"
+              />
+            </div>
+            <div className="relative mt-4">
+              <h3 className="text-sm font-medium text-gray-900">
+                {launch.name}
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">launch date: {launch.date_local}</p>
+            </div>
+            <div className="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
+              />
+              <p className="relative text-lg font-semibold text-white">
+                {launch.price}
+              </p>
+            </div>
+          </div>
+          <div className="mt-6">
+            <Link
+              rel="preconnect"
+              to={`/launch/${launch.id}`}
+              className="text-gray-600 hover:text-gray-500"
+            >
+              <span className="sr-only">rocket number</span>
+              {/* {launch.name} */}
+              Read More
+            </Link>
+          </div>
+        </div>
+      );
+    });
+
+  
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
+  const pageCount = Math.ceil(launches.length / launchesPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
     return (
-      <div className="container">
-        <div className="row justify-content-center">
-          {launches.map((launch) => (
-            <div
-              className="col-xs-12 col-md-5 col-xl-5   cardCol d-flex flex-fill"
-              key={launch.id}
-            >
-              <div className="row d-flex flex-fill ">
-                <div className="col-xs-4 col-md-6 col-lg-4 propsImageDiv  d-flex flex-fill ">
-                  <div className="">
-                    {launch.links.patch.small ? (
-                      <img
-                        className="propsImage"
-                        src={launch.links.patch.small}
-                        alt={launch.name}
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
-  
-                <div className="col-xs-12 col-md-12 col-lg-8   d-flex flex-fill">
-                  <div className="d-flex align-items-start flex-column bd-highlight ">
-                    <h2 className=" p-2 bd-highlight ">
-                      {launch.name}
-                    </h2>
-  
-                    <div className="p-2  description ">
-                      {launch.details && launch.details.substr(0, 150)}
-                    </div>
+      <div className="bg-white">
+        <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+          <h2 className="text-xl font-bold text-gray-900">
+            All Launches
+          </h2>
 
-                    <Link to={`/launch/${launch.id}`} className="text-gray-400 hover:text-gray-500">
-                          <span className="sr-only">rocket number</span>fds
-                          {/* Active status: {crew.status === 'active' ? <span style={{color:'lightgreen'}}>Active</span>: <span style={{color:'red'}}>Not active</span>} */}
-                        </Link>
-  
-                    {/* <div className="p-2 bd-highlight d-flex align-items-stretch mt-auto">
-                      <button onClick={() => expandModal(launch)}>
-                        Open Modal
-                      </button>
-                    </div> */}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-  
-          {/* <div onClick={() => console.log("clicked")} />
-            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-        name={launch.name}
-              {console.log(launch)}
-               {console.log(launch && launch.name)}
-            </Modal>
-          </div> */}
+          <div className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+            {displayLaunches}
+          </div>
         </div>
+
+        <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          breakLabel={"..."}
+          pageCount={pageCount}
+          marginPagesDisplayed={4}
+          onPageChange={changePage}
+          containerClassName={
+            "container bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 cont"
+          }
+          pageClassName={"text-sm text-gray-700"}
+          pageLinkClassName={"text-sm text-gray-700"}
+          previousClassName="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+          previousLinkClassName=""
+          nextClassName="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+          nextLinkClassName=""
+          activeClassName={"paginationActive"}
+        />
       </div>
     );
   };
      
-    
- 
-
-
-
-
-
-
-
-
-
- 
-  // const [pageNumber, setPageNumber] = useState(0);
-
-
-  // const launches = useSelector((state) => state.launches);
-// console.log(launches)
- 
-    // const launchesPerPage = 12;
-    // const pagesVisited = pageNumber * launchesPerPage;
-
-    // const displaylaunches = launches
-
-    // .slice(pagesVisited, pagesVisited + launchesPerPage)
-    // .map((launch) => {
-    //   <div className="row ">
-
-      // return (
-       
-        // <ul className=''>
-      /* {launches.map(({ id, name,  }, index) => (
-        <li className='' key={id}>
-          <div className=''>{`#${index + 1} ${name}`}</div>
-          <div className=''>
-            <div className=''>{`${getYearWithoutTime( date_local )}`}</div>
-            <div className=''>FALCON 1/9</div>
-          </div>
-        </li>
-      ))} */
-    // </ul>
-      // );
-    // });
-      // )};
-   
-  
-  // const pageCount = Math.ceil(launches.length / launchesPerPage);
-  
-  // const changePage = ({ selected }) => {
-  //   setPageNumber(selected);
-  // };
-
-
-  // return (
-  // <div className="row ">
-  //     {displaylaunches}
-  //     <ReactPaginate
-  //       previousLabel={"Previous"}
-  //       nextLabel={"Next"}
-  //       pageCount={pageCount}
-  //       onPageChange={changePage}
-  //       containerClassName={"paginationBttns"}
-  //       previousLinkClassName={"previousBttn"}
-  //       nextLinkClassName={"nextBttn"}
-  //       disabledClassName={"paginationDisabled"}
-  //       activeClassName={"paginationActive"}
-  //     />
-  //   </div>
-  //  );
-  // }
 
 export default Launches;

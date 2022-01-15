@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
-import { PaperClipIcon } from '@heroicons/react/solid'
-import { green } from "@material-ui/core/colors";
+
+import { Disclosure,  Tab } from '@headlessui/react'
+import { StarIcon } from '@heroicons/react/solid'
+import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/outline'
+
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
 const RocketById = () => {
+  
   const { id } = useParams();
   const [rocket, setRocket] = useState('');
+  
 
   useEffect(() => {
     axios
@@ -15,240 +24,274 @@ const RocketById = () => {
         setRocket(response.data);
       })
       .catch((error) => {});
-  }, []);
+  },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  []);
+
+  // const [items, setItems] = useState(rocket);
+  
+  let ratings = 0
+  if (rocket && rocket.success_rate_pct <= 25 ) {
+    ratings = 1
+  } else if (rocket && rocket.success_rate_pct <= 50 && rocket.success_rate_pct >= 26) {
+    ratings = 2
+  } else if (rocket && rocket.success_rate_pct <= 75 && rocket.success_rate_pct >= 51) {
+    ratings = 3
+  } else if (rocket && rocket.success_rate_pct <= 95 && rocket.success_rate_pct >= 76 ) {
+    ratings = 4
+  } else {
+    ratings = 5
+  }
+  // console.log(ratings)
+
+  const [ values, setValues ] = useState('');
+  // const [entry, setEntry] = useState('')
+
+  // console.log(rocket.entries(obj))
+  // const detail =  rocket
+
+  // for (let i = 0; i < rocket.length; i++) {
+  //   console.log(rocket[i])
+  //   for(let k = 0; k < rocket[i].length; k++ ){
+  //     console.log(rocket[i][k])
+  //   }
+  // }
+
+//   const detail =  Object.entries(rocket)
+//   let structure = ""
+
+//    for (let i = 0; i < detail.length; i++) {
+//     // console.log(detail[i])
+//     for(let k = 0; k < detail[i].length; k++ ){
+//       // console.log(detail[i][k])
+//       structure += detail[i][k]
+//       for(let j = 0; j < detail[k].length; j++ ) {
+//         // console.log(detail[i][k][j])
+//       }
+//     }
+
+//   }
+
+// console.log(structure)
+
+  // console.log(detail[0][1].meters)
+  // console.log(detail[0][1].feet)
+
+  //   const {height: {feet}} = detail[0];
+  // console.log(feet)
+  //  console.log(rocket)
+  //  console.log(rocket.height.feet)
+  //  console.log(rocket.height.meters)
+  const feet = rocket["height"]
+  console.log(feet)
+
+  const details =  Object.keys(rocket)
+
+
+
+  // console.log(details)
+
+
+  
+
+  // details.forEach(function(row) {
+  //     row.forEach(function(col) {
+  //         console.log(col)
+  //       })
+  // })
+
+  
+
+  
+
+  // const array1 = Object.keys(rocket);
+//   const iterator1 = array1.entries();
+  
+//   console.log(iterator1.next().value);
+// console.log(iterator1.next().value);
+// console.log(iterator1.next().value);
+// console.log(iterator1.next().value);
+
+// for (const [index, element] of details.entries())
+//   console.log(index, element);
+  
+//   for (const [index, element] of element.entries())
+//   console.log(index, element);
+
+// for(key in details) {
+//   if(details.hasOwnProperty(key)) {
+//       var value = details[key];
+//       //do something with value;
+//   }
+// }
+
+// const map1 = new Map();
+
+// // map1.set('0', details);
+// map1.set(1, rocket);
+
+// const iterator1 = map1.values();
+
+// const arr1  = iterator1.next().value
+// console.log(arr1)
+
+
+
+
+// console.log(iterator1.next().value);
+
+// console.log(Object.values(Object.keys(rocket)))
+
+  
+// details.pop()
+// delete details[9]
+// delete details[14]
+// delete details[15]
+// delete details[20]
+// console.log(details)
+
+
 
   return (
-    // <div>
-    //   <h1>{rocket.name}</h1>
-    //   <p></p>
-    // </div>
-    <>
-      <div className="bg-gray-50 pt-12 sm:pt-16" >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Trusted by space companies all over the world
-            </h2>
-            <p className="mt-3 text-xl text-gray-500 sm:mt-4">
-              {rocket.description}
-            </p>
+    <div className="bg-white">
+    <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+      <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
+        {/* Image gallery */}
+        <Tab.Group as="div" className="flex flex-col-reverse">
+          {/* Image selector */}
+          <div className="hidden mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
+            <Tab.List className="grid grid-cols-4 gap-6">
+              {rocket && rocket.flickr_images.map((image, index) => (
+                <Tab
+                  key={index}
+                  className="relative h-24 bg-white rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-offset-4 focus:ring-opacity-50"
+                >
+                  {({ selected }) => (
+                    <>
+                      <span className="sr-only">{rocket.name}</span>
+                      <span className="absolute inset-0 rounded-md overflow-hidden">
+                        <img src={image} alt="" className="w-full h-full object-center object-cover" />
+                      </span>
+                      <span
+                        className={classNames(
+                          selected ? 'ring-blue-500' : 'ring-transparent',
+                          'absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none'
+                        )}
+                        aria-hidden="true"
+                      />
+                    </>
+                  )}
+                </Tab>
+              ))}
+            </Tab.List>
           </div>
-        </div>
-        <div className="mt-10 pb-12 bg-white sm:pb-16">
-          <div className="relative">
-            <div className="absolute inset-0 h-1/2 bg-gray-50" />
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="max-w-6xl mx-auto">
-                <dl className="rounded-lg bg-white shadow-lg md:grid md:grid-cols-3">
-                  <div className="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
-                    <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
-                      Flight Success
-                    </dt>
-                    <dd className="order-1 text-5xl font-extrabold text-indigo-600">
-                      {rocket.success_rate_pct}%
-                    </dd>
-                  </div>
-                  <div className="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
-                    <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
-                      First flight
-                    </dt>
-                    <dd className="order-1 text-5xl font-extrabold text-indigo-600">
-                      {rocket.first_flight}
-                    </dd>
-                  </div>
-                  <div className="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
-                    <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">
-                      Company
-                    </dt>
-                    <dd className="order-1 text-5xl font-extrabold text-indigo-600">
-                      {rocket.company}
-                    </dd>
-                  </div>
-                </dl>
+          
+          <Tab.Panels className="w-full aspect-w-1 aspect-h-1">
+          {rocket && rocket.flickr_images.map((image, index) => (
+              <Tab.Panel key={index}>        
+                <img
+                  src={image}
+                  // alt={image.alt}
+                  alt=""
+                  className="w-full h-full object-center object-cover sm:rounded-lg"
+                />
+              </Tab.Panel>
+            ))}
+          </Tab.Panels>
+        </Tab.Group>
+
+        {/* Product info */}
+        <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
+          <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{rocket.name}</h1>
+
+          <div className="mt-3">
+            <h2 className="sr-only">Rocket information</h2>
+            <p className="text-3xl text-gray-900">{rocket.description}</p>
+          </div>
+
+          {/* Reviews */}
+          <div className="mt-3">
+            <h3 className="sr-only">Reviews</h3>
+            <div className="flex items-center">
+              <div className="flex items-center">
+                {[0, 1, 2, 3, 4].map((rating) => (
+                  <StarIcon
+                    key={rating}
+                    className={classNames(
+                      ratings > rating ? 'text-blue-500' : 'text-gray-300',
+                      'h-5 w-5 flex-shrink-0'
+                    )}
+                    aria-hidden="true"
+                  />
+                 ))} 
               </div>
+              <p className="sr-only">{ratings} out of 5 stars</p>
             </div>
           </div>
+
+
+          <section aria-labelledby="details-heading" className="mt-12">
+            <h2 id="details-heading" className="sr-only">
+              Additional details
+            </h2>
+
+            <div className="border-t divide-y divide-gray-200">
+              {details.map((detail, index) => (
+
+                <Disclosure as="div" key={index}>
+                  {({ open }) => (
+                    <>
+                      <h3 >
+                        <Disclosure.Button className="group relative w-full py-6 flex justify-between items-center text-left">
+                          <span
+                            className={classNames(open ? 'text-blue-600' : 'text-gray-900', 'text-sm font-medium')}
+                          >
+                            {detail.toUpperCase()}
+                          </span>
+                          <span className="ml-6 flex items-center">
+                            {open ? (
+                              <MinusSmIcon
+                                className="block h-6 w-6 text-blue-400 group-hover:text-blue-500"
+                                aria-hidden="true"
+                              />
+                            ) : (
+                              <PlusSmIcon
+                                className="block h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                                aria-hidden="true"
+                              />
+
+                              
+                              
+                            )}
+                          </span>
+                        </Disclosure.Button>
+                      </h3>
+                      <Disclosure.Panel as="div" className="pb-6 prose prose-sm">
+
+                        <ul role="list">
+                          {console.log(rocket[detail])}
+                        
+                           {/* {rocket[detail].map((item) => (
+                              <li  >
+                                {console.log(item)}
+                              
+                            </li>
+                          ))}  */}
+                         
+
+
+                        </ul>
+                      </Disclosure.Panel>
+                    </>
+                  )}
+                </Disclosure>
+               ))} 
+            </div>
+          </section>
         </div>
       </div>
-
-      <div className="bg-white shadow overflow-hidden sm:rounded-lg container">
-        <div className="px-4 py-5 sm:px-6 d-flex">
-          <h3 className="col text-lg leading-6 font-medium text-gray-900">
-            Detailed {rocket.name} information
-          </h3>
-          <div className="ml-auto">
-            {/* <img src={rocket.links.patch[1]} /> */}
-          </div>
-        </div>
-        <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
-          <dl className="sm:divide-y sm:divide-gray-200">
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Rocket name</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket.name}
-              </dd>
-            </div>
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Type</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket.type}
-              </dd>
-            </div>
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Active</dt>
-
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket.active === true ? (
-                  <span style={{ color: "green" }}>Active</span>
-                ) : (
-                  <span style={{ color: "red" }}>Not Active</span>
-                )}
-              </dd>
-            </div>
-
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6 ">
-              <dt className="text-sm font-medium text-gray-500">
-                Cost per launch
-              </dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                ${rocket.cost_per_launch}
-              </dd>
-
-              <dt className="text-sm font-medium  text-gray-500">
-                Cost per launch
-              </dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                ${rocket.cost_per_launch}
-              </dd>
-            </div>
-
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6 ">
-              <dt className="text-sm font-medium text-gray-500">
-                Stages
-              </dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket.stages}
-              </dd>
-
-              <dt className="text-sm font-medium  text-gray-500">
-                Boosters
-              </dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket.boosters}
-              </dd>
-            </div>
-
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6 ">
-              <dt className="text-sm font-medium text-gray-500">
-                height
-              </dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket && rocket.height.feet} ft
-              </dd>
-
-              <dt className="text-sm font-medium  text-gray-500">
-                diameter
-              </dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket && rocket.diameter.feet} ft
-              </dd>
-            </div>
-
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6 ">
-              <dt className="text-sm font-medium text-gray-500">
-                Weight
-              </dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {rocket && rocket.mass.lb} lbs
-              </dd>
-
-              <dt className="text-sm font-medium  text-gray-500">
-                Number of Engines
-              </dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-              {rocket && rocket.height.feet} ft
-              </dd>
-            </div>
-
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">About</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim
-                incididunt cillum culpa consequat. Excepteur qui ipsum aliquip
-                consequat sint. Sit id mollit nulla mollit nostrud in ea officia
-                proident. Irure nostrud pariatur mollit ad adipisicing
-                reprehenderit deserunt qui eu.
-              </dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-
-
-
-
-     
-
-      <div className="container">
-        <div
-          id="carouselExampleControls"
-          className="carousel slide"
-          data-ride="carousel"
-        >
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              <img
-                className="d-block"
-                style={{ height: "450px", width: "80%" }}
-                src={rocket && rocket.flickr_images[0]}
-                alt="First slide"
-              />
-            </div>
-
-            <div className="carousel-item">
-              <img
-                className="d-block"
-                style={{ height: "450px", width: "80%" }}
-                src={rocket && rocket.flickr_images[1]}
-                alt="Second slide"
-              />
-            </div>
-            <div className="carousel-item">
-              <img
-                className="d-block"
-                style={{ height: "450px", width: "80%" }}
-                src={rocket && rocket.flickr_images[2]}
-                alt="Third slide"
-              />
-            </div>
-          </div>
-          <a
-            className="carousel-control-prev"
-            href="#carouselExampleControls"
-            role="button"
-            data-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="sr-only">Previous</span>
-          </a>
-          <a
-            className="carousel-control-next "
-            href="#carouselExampleControls"
-            role="button"
-            data-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-    </>
+    </div>
+  </div>
   );
 };
 

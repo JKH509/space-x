@@ -12,13 +12,13 @@ const CrewById = () => {
       axios
         .get(`https://api.spacexdata.com/v4/crew/${id}`)
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setCrewMemberId(response.data);
         })
         .catch((error) => {
           console.log(error);
         });
-    }, []);
+    }, [id]);
 
   return (
     <div>

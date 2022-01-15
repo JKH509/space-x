@@ -8,10 +8,16 @@ import Rockets from './rockets/Rockets';
 import RocketById from './rockets/RocketById';
 import ErrorPage from './shared/err/ErrorPage';
 
-import MainViewProp from './search/MainViewProp';
+
 import Crew from './crew/Crew';
 import CrewById from './crew/CrewById';
-import CrewByLaunch from './crew/CrewByLaunch';
+import StarLinkPage from './starlink/StarLinkPage';
+import StarLinkById from './starlink/StarLinkById';
+import BlankPage from './rockets/BlankPage';
+
+// {todo}
+// import CrewByLaunch from './crew/CrewByLaunch';
+// import MainViewProp from './search/MainViewProp';
 
 
 
@@ -23,17 +29,36 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/blank" element={<BlankPage />} />
+
+
         <Route path="/launches" element={<Launches />} />
         <Route path='/launch/:id' element={<LaunchById />} />
+
         <Route path="/rockets" element={<Rockets />} />
         <Route path="/rocket/:id" element={<RocketById />} />
+        {/* <Route path="/rocket/:name" element={<RocketById />} /> */}
+
         <Route path='/crew-members' element={<Crew />} />
         <Route path='/crew-member/:id' element={<CrewById />} />
 
+        <Route path='/starlink' element={<StarLinkPage />} />
+        <Route path='/starlink/:id' element={<StarLinkById />} />
+        {/* <Route path='/starlink/:name' element={<StarLinkById />} /> */}
+
                     {/* To Be Figured Out */}
         {/* <Route path='/crew/:id' element={<CrewByLaunch />} /> */}
-
         {/* <Route path='/props' element={<MainViewProp />} /> */}
+
+        {/* ToDo */}
+        {/* <Route path='/landing-pad' element={<StarLinkPage />} /> */}
+        {/* <Route path='/landing-pad/:id' element={<StarLinkById />} /> */}
+
+        {/* <Route path='/launch-pad' element={<StarLinkPage />} /> */}
+        {/* <Route path='/launch-pad/:id' element={<StarLinkById />} /> */}
+
+
+
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </>
