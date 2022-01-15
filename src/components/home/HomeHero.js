@@ -11,8 +11,6 @@ const HomeHero = () => {
       .get('https://api.spacexdata.com/v4/roadster')
       .then((response) => {
         setRoadster(response.data);
-        console.log(response.data);
-        console.log(response.data.name);
       })
       .catch((error) => {
       });
@@ -20,9 +18,9 @@ const HomeHero = () => {
 
 
   return (
-    <div className="spaceBG ">
+    <div className="spaceBG">
       <div
-        className="heroBackground center "
+        className="heroBackground center"
         style={{
           backgroundImage: `url('${roadster && roadster.flickr_images[1]}')`,
         }}

@@ -47,7 +47,7 @@ const Launches = ( ) => {
               <h3 className="text-sm font-medium text-gray-900">
                 {launch.name}
               </h3>
-              <p className="mt-1 text-sm text-gray-500">launch date: {launch.date_local}</p>
+              <p className="mt-1 text-sm text-gray-500">launch date: {launch.date_local.toLocaleString()}</p>
             </div>
             <div className="absolute top-0 inset-x-0 h-72 rounded-lg p-4 flex items-end justify-end overflow-hidden">
               <div
@@ -66,8 +66,7 @@ const Launches = ( ) => {
               className="text-gray-600 hover:text-gray-500"
             >
               <span className="sr-only">rocket number</span>
-              {/* {launch.name} */}
-              Read More
+              Learn More
             </Link>
           </div>
         </div>

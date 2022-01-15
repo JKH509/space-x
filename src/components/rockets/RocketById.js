@@ -44,8 +44,7 @@ const RocketById = () => {
   }
   // console.log(ratings)
 
-  const [ values, setValues ] = useState('');
-  // const [entry, setEntry] = useState('')
+
 
   // console.log(rocket.entries(obj))
   // const detail =  rocket
@@ -223,7 +222,7 @@ delete details[20]
                       </h3>
                       <Disclosure.Panel as="div" className="pb-6 prose prose-sm">
 
-                        <ul role="list">
+                        <ul >
                           {/* {console.log(rocket["height"[1]] )} */}
 
                           {/* This works... */}

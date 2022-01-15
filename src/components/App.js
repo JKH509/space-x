@@ -13,7 +13,7 @@ import Crew from './crew/Crew';
 import CrewById from './crew/CrewById';
 import StarLinkPage from './starlink/StarLinkPage';
 import StarLinkById from './starlink/StarLinkById';
-import BlankPage from './rockets/BlankPage';
+
 
 // {todo}
 // import CrewByLaunch from './crew/CrewByLaunch';
@@ -29,8 +29,6 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/blank" element={<BlankPage />} />
-
 
         <Route path="/launches" element={<Launches />} />
         <Route path='/launch/:id' element={<LaunchById />} />

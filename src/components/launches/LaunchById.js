@@ -10,7 +10,7 @@ const LaunchById = () => {
   // const [payload, setPayload]= useState([])
   const [payload, setPayload] = useState([]);
   const [rocket, setRocket] = useState([]);
-  const [rocketData, setRocketData] = useState([]);
+  // const [rocketData, setRocketData] = useState([]);
   const [payloadById, setPayloadById] = useState([]);
 
   useEffect(() => {
@@ -22,11 +22,11 @@ const LaunchById = () => {
         setRocket(launchId.rocket);
       })
       .catch((error) => {});
-    console.log(rocket);
+    // console.log(rocket);
     // console.log(launchId.payloads)
     setPayload(launchId.payloads);
     // console.log(payloadID)
-    console.log(payload.name);
+    // console.log(payload.name);
     axios
       .get(`https://api.spacexdata.com/v4/payloads/${payload}`)
       // .get('https://api.spacexdata.com/v4/payloads/5eb0e4b5b6c3bb0006eeb1e1')
@@ -59,41 +59,13 @@ const LaunchById = () => {
         // console.log(payloadById)
       })
       .catch((error) => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="bg-white">
       <div className="pt-6">
-        <nav aria-label="Breadcrumb">
-          {/* <ol role="list" className="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8"> */}
-          <ol className="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
-            {/* {launchId.breadcrumbs.map((breadcrumb) => ( */}
-            {/* <li key={breadcrumb.id}>
-              <div className="flex items-center">
-                <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
-                  {breadcrumb.name}
-                </a>
-                <svg
-                  width={16}
-                  height={20}
-                  viewBox="0 0 16 20"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  className="w-4 h-5 text-gray-300"
-                >
-                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                </svg>
-              </div>
-            </li> */}
-            {/* ))} */}
-            {/* <li className="text-sm">
-            <a href={launchId.href} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-              {launchId.name}
-            </a>
-          </li> */}
-          </ol>
-        </nav>
+        
 
         {/* Image gallery */}
         <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
