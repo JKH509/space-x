@@ -36,13 +36,6 @@ const HomePage = () => {
         return request;
       }
       fetchRockets()
-
-      // async function fetchCrew1() {
-      //   const request = await axios.get('https://api.spacexdata.com/v4/crew/5fe3c587b3467846b3242198')
-      //   setCrew1(request.data)
-      //   return request;
-      // }
-      // fetchCrew1()
     }, [])
 
     
@@ -178,9 +171,7 @@ const HomePage = () => {
               </div>
             </section>
           </div>
-
         </div>
-
       </div>
     );
 };

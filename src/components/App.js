@@ -13,6 +13,7 @@ import Crew from './crew/Crew';
 import CrewById from './crew/CrewById';
 import StarLinkPage from './starlink/StarLinkPage';
 import StarLinkById from './starlink/StarLinkById';
+import ScratchPage from './launches/ScratchPage';
 
 
 // {todo}
@@ -31,6 +32,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
 
         <Route path="/launches" element={<Launches />} />
+
+        <Route path="/launchdesign" element={<ScratchPage />} />
+        
         <Route path='/launch/:id' element={<LaunchById />} />
 
         <Route path="/rockets" element={<Rockets />} />
